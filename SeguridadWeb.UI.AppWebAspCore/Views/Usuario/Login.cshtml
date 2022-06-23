@@ -1,0 +1,43 @@
+﻿@model SeguridadWeb.EntidadesDeNegocio.Usuario
+
+@{ ViewData["Title"] = "Login"; }
+
+<p class="font-weight-bold">Iniciar session</p>
+
+<section class="ftco-section">
+    <div class="container justify-content-center d-flex">
+        <div class="row justify-content-center" style="background-color:#38A9AD80; border-radius: 6px " ;>
+            <div class="col-md-12 col-lg-12">
+                <div class="flex-wrap d-md-flex">
+                    <div class="figure-img"><br /><br /><img src="~/Source/assets/logoEscuela.png" alt="Logo" width="250" height="250" /> </div>
+                    <div class="login-wrap p-4 p-md-5">
+                        <form asp-action="Login" class="signin-form">
+                            <input type="hidden" name="pReturnUrl" value="@ViewBag.Url" />
+
+                            <div class="form-group mb-3">
+                                <label asp-for="Login" class="control-label font-weight-bold"></label>
+                                <input asp-for="Login" class="form-control" placeholder="Username" required />
+                                <span asp-validation-for="Login" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label asp-for="Password" class="control-label font-weight-bolder"></label>
+                                <input asp-for="Password" class="form-control" placeholder="Password" required />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Login" class="form-control btn btn-primary rounded px-3" />
+                            </div>
+                            <span class="text-danger">@ViewBag.Error</span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

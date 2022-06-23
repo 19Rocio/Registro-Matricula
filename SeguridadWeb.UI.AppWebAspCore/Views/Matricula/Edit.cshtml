@@ -1,0 +1,178 @@
+﻿@model SeguridadWeb.EntidadesDeNegocio.Matricula
+
+@{
+    ViewData["Title"] = "Edit";
+    List<SeguridadWeb.EntidadesDeNegocio.Alumno> alumn = ViewBag.Alumnos as List<SeguridadWeb.EntidadesDeNegocio.Alumno>;
+    List<SeguridadWeb.EntidadesDeNegocio.Docente> docent = ViewBag.Docentes as List<SeguridadWeb.EntidadesDeNegocio.Docente>;
+    List<SeguridadWeb.EntidadesDeNegocio.Grado> grado = ViewBag.Grados as List<SeguridadWeb.EntidadesDeNegocio.Grado>;
+    List<SeguridadWeb.EntidadesDeNegocio.Seccion> seccion = ViewBag.Secciones as List<SeguridadWeb.EntidadesDeNegocio.Seccion>;
+}
+
+<h1>Editar Matricula</h1>
+<hr />
+<div class="row mb-3">
+    <div class="col-sm-12">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" class="form-control" />
+          
+            <div class="row">    
+                
+                    @foreach (var item in alumn)
+                    {
+                        if (Model.IdAlumno == item.IdAlumno)
+                        {
+                           
+                            <input type="hidden" asp-for="IdAlumno" value="@item.IdAlumno">
+                            <div class="row align-items-end">
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label asp-for="IdAlumno" class="control-label">NIE</label>
+                                        <input type="text" value="@item.Nie" class="form-control" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Nombres</label>
+                                        <input type="text" value="@item.Nombre" class="form-control" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label  class="control-label">Apellidos</label>
+                                        <input type="text" value="@item.Apellido" class="form-control" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    }
+                    <span asp-validation-for="IdAlumno" class="text-danger"></span>
+
+             
+            <div class="col-sm-4">
+            <div class="form-group">
+                <label asp-for="IdDocente" class="control-label">Seleccionar Docente a cargo</label>
+
+                <select asp-for="IdDocente" class="form-control">
+                    <option selected value="">SELECCIONAR</option>
+                    @foreach (var item in docent)
+                    {
+                        if (Model.IdDocente == item.IdDocente)
+                        {
+                            <option selected value="@item.IdDocente">@item.Nombre,@item.Apellido</option>
+                        }
+                        else
+                        {
+                            <option value="@item.IdDocente">@item.Nombre,@item.Apellido</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="IdDocente" class="text-danger"></span>
+            </div>
+                </div>
+            </div>
+            <div class="row align-items-end">
+                <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for="IdGrado" class="control-label">Seleccionar Grado</label>
+                <select asp-for="IdGrado" class="form-control">
+                    <option selected value="">SELECCIONAR</option>
+                    @foreach (var item in grado)
+                    {
+                        if (Model.IdGrado == item.Id)
+                        {
+                            <option selected value="@item.Id">@item.Grado1</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.Grado1</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="IdGrado" class="text-danger"></span>
+            </div>
+                    </div>
+                <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for="IdSeccion" class="control-label">Seleccionar sección</label>
+                <select asp-for="IdSeccion" class="form-control">
+                    <option selected value="">SELECCIONAR</option>
+                    @foreach (var item in seccion)
+                    {
+                        if (Model.IdSeccion == item.Id)
+                        {
+                            <option selected value="@item.Id">@item.Seccion1</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.Seccion1 </option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="IdSeccion" class="text-danger"></span>
+            </div>
+            </div>
+            </div>
+            <div class="row align-items-end">
+                <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for="AnioLectivo" class="control-label"></label>
+                <input  asp-for="AnioLectivo" class="form-control" type="date" />
+                <span asp-validation-for="AnioLectivo" class="text-danger"></span>
+            </div>
+                    </div>
+                <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for="AnioIngreso" class="control-label"></label>
+                <input disabled asp-for="AnioIngreso" class="form-control" type="date"/>
+                <span asp-validation-for="AnioIngreso" class="text-danger"></span>
+            </div>
+                    </div>
+                </div>
+            <div class="row align-items-end">
+                <div class="col-sm-6">
+            <div class="form-group">
+                <label asp-for="AnioEgreso" class="control-label"></label>
+                <input asp-for="AnioEgreso" class="form-control" />
+                <span asp-validation-for="AnioEgreso" class="text-danger"></span>
+            </div>
+                    </div>
+                <div class="col-sm-6">
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-dark">Cancelar</a>
+            </div>
+                    </div>
+                </div>
+            <span class="text-danger">@ViewBag.Error</span>
+        </form>
+   </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            @Html.ActionLink("Editar Ficha Estudiante", "Edit", "Alumno", new { id = Model.IdAlumno }, new { @class = "btn btn-info" })
+            </div>
+        
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    $(document).ready(
+        
+        function () {
+            "url": "@Url.Action("Editar","Alumno")"
+           
+            
+                document.getElementById('txtalumnonombres').value = Nombre,
+                document.getElementById('txtalumnoapellidos').value = Apellido
+            
+        }
+        
+    );
+</script>
+}

@@ -1,0 +1,205 @@
+﻿@model IEnumerable<SeguridadWeb.EntidadesDeNegocio.Usuario>
+
+@{ ViewData["Title"] = "Index";
+                int numPage = 1;
+                int numRegistros = 0;
+                int numRegistrosPorPage = 10;
+                int[] tops = { 10, 20, 50, 100, 500, 1000, 10000, -1 };
+                int topActual = Convert.ToInt32(ViewBag.Top);
+                List<SeguridadWeb.EntidadesDeNegocio.Rol> roles = ViewBag.Roles as List<SeguridadWeb.EntidadesDeNegocio.Rol>; }
+<h1>Buscar</h1>
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Index">
+            <input id="txtIdUsuario" type="hidden" value="0" />
+            <input id="txtIdReferencia" type="hidden" value="0" />
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-row align-items-end mb-2">
+                        <div class="col-sm-10">
+                            <label for="cboReferencia">Referencia</label>
+                            <select id="cboReferencia" class="form-control">
+                                <option value="NINGUNA">NINGUNA</option>
+                                <option value="ALUMNO">ALUMNO</option>
+                                <option value="DOCENTE">DOCENTE</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-primary" id="btnVerReferencia"  data-toggle="modal" data-target="#modalReferencia" onclick="VerReferencia()">Ver</button>
+                            <button type="button" class="btn btn-info form-control" data-toggle="modal" data-target="#modalReferencia">Ver</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Login</label>
+                        <input type="text" class="form-control" name="login" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label">Estado</label>
+                        <select name="estado" class="form-control">
+                            <option selected value="0">SELECCIONAR</option>
+                            <option value="1">ACTIVO</option>
+                            <option value="2">INACTIVO</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Fecha Registro</label>
+                        <input type="date" name="fechaRegistro" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Rol</label>
+                        <select name="idRol" class="form-control">
+                            <option selected value="0">SELECCIONAR</option>
+                            @foreach (var item in roles)
+                            {
+                <option value="@item.Id">@item.Nombre</option>
+}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="control-label">Top</label>
+                        <select name="top_aux" class="form-control">
+                            @foreach (var item in tops)
+                            {
+                                string strItem = item != -1 ? item.ToString() : "Todos";
+                                if (item != topActual)
+                                {
+                <option value="@item">@strItem</option>
+ }
+            else
+            {
+        <option selected value="@item">@strItem</option>
+}
+}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Buscar" class="btn btn-primary" />
+                <a asp-action="Create" class="btn btn-primary">Crear</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<table class="table table-responsive paginationjs">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Login)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdRol)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaRegistro)
+            </th>
+            <th colspan="3">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr data-page="@numPage">
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Login)
+    </td>
+    @if (item.Estado == 1)
+    {
+<td>ACTIVO</td> }
+                else if (item.Estado == 2)
+                {
+<td>INACTIVO</td> }
+                else
+                {
+<td></td>                }
+    <td>
+        @Html.DisplayFor(modelItem => item.Rol.Nombre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaRegistro)
+    </td>
+    <td class="botonestabla">
+        @Html.ActionLink("Modificar", "Edit", new { id = item.Id }, new { @class = "btn btn-success" })
+    </td>
+    <td class="botonestabla">
+        @Html.ActionLink("Ver", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+    </td>
+    <td class="botonestabla">
+        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+    </td>
+</tr>numRegistros++;
+                if (numRegistros == numRegistrosPorPage)
+                {
+                    numPage++;
+                    numRegistros = 0;
+                }
+            }
+        @{ if (numRegistros == 0)
+                        {
+                            numPage--;
+                        } }
+    </tbody>
+</table>
+@if (numPage > 1)
+{
+<div class="row" style="overflow:auto">
+    <div class="col-md-12">
+        <ul class="pagination paginationjs" data-numpage="@numPage" data-pageactive="1">
+            <li class="page-item" data-typepage="Previous"><a class="page-link" href="#">Previous</a></li>
+            @for (var i = 1; i <= numPage; i++)
+            {
+<li class="page-item" data-page="@i" data-typepage="Item"><a class="page-link" href="#">@i</a></li>                }
+            <li class="page-item" data-typepage="Next"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </div>
+</div>}
+
+<!-- Modal -->
+<div class="modal fade" id="modalReferencia" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><span id="txtSeleccione"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table id="tbModal" style="width:100%">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/Controllers/Usuario.js")" type="text/javascript"></script>
+}
+

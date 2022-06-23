@@ -1,0 +1,71 @@
+﻿@model SeguridadWeb.EntidadesDeNegocio.Docente
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Ficha</h1>
+
+<div>
+    <h4>Docente</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Apellido)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Apellido)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IdUser)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Usuario.Id)
+            @Html.DisplayFor(model => model.Usuario.Login)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Asignatura)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Asignatura)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IdGrado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Grado.Grado1)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IdSeccion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Seccion.Seccion1)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Correo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Correo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+    </dl>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.ActionLink("Ir a modificar", "Edit", new { id = Model.IdDocente }, new { @class = "btn btn-info" })
+            <a asp-action="Index" class="btn btn-dark">Cancelar</a>
+        </div>
+    </div>
+</div>

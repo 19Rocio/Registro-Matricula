@@ -1,0 +1,99 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Escuela El Capulín</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CENTRO ESCOLAR CANTÓN EL CAPULÍN</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                @if (User.Identity.IsAuthenticated)
+                {
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+
+                    <li class="nav-item dropright">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Administrativo
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Rol" asp-action="Index">Rol</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Usuario</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Grado" asp-action="Index">Grados</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Seccion" asp-action="Index">Secciones</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Docente" asp-action="Index">Docentes</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropright">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Matricular
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Alumno" asp-action="Index">Alumnos</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Encargado" asp-action="Index">Encargado</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Matricula" asp-action="Index">Matricular</a>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+                            <form class="form-inline">
+
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="CambiarPassword">Cambiar password</a>
+
+
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="CerrarSesion">Cerrar sesión</a>
+
+                            </form>}
+            </div>
+
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - Registro Matricula
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script type="text/javascript">
+
+
+        $.extend({ MisUrls: { url: {}, urls: function (a) { $.extend($.MisUrls.url, a); } } });
+
+        //ALUMNO
+        $.MisUrls.urls({ UrlGetAlumnos: '@Url.Action("Listar", "Alumno")' });
+        $.MisUrls.urls({ UrlPostGuardarAlumno: '@Url.Action("Guardar", "Alumno")' });
+        $.MisUrls.urls({ UrlGetEliminarAlumno: '@Url.Action("Eliminar", "Alumno")' });
+        $.MisUrls.urls({ UrlGetConsultaReporteAlumno: '@Url.Action("ConsultaReporte", "Alumno")' });
+
+        //MATRICULA
+        $.MisUrls.urls({ UrlPostRegistrarMatricula: '@Url.Action("Registrar", "Matricula")' });
+        $.MisUrls.urls({ UrlPostMatriculaConsultaReporte: '@Url.Action("ConsultaReporte", "Matricula")' });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

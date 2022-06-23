@@ -1,0 +1,28 @@
+//INSERT
+
+USE[RegistroBD]
+GO
+INSERT INTO [dbo].[Rol]
+([rol])
+VALUES
+('ADMINISTRADOR')
+GO
+//-----------------------------
+INSERT INTO [dbo].[Usuario]
+([idRol],[login],[password],[fechaRegistro],[estado])
+VALUES
+((Select Top 1 id_Rol from Rol Where rol ='ADMINISTRADOR'), 'AdministradorSys','1fe57b020cf7bcd8ef4cc23354b214a9',SYSDATETIME(),1)
+GO
+//--------------------------------
+INSERT INTO [dbo].[Grado]
+([grado])
+VALUES
+('NOVENO')
+GO
+//--------------------------------
+INSERT INTO [dbo].[Seccion]
+([seccion])
+VALUES
+('A')
+GO
+//---------------------------------

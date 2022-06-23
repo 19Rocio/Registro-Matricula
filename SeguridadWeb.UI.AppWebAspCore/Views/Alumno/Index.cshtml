@@ -1,0 +1,202 @@
+﻿@model IEnumerable<SeguridadWeb.EntidadesDeNegocio.Alumno>
+
+@{ ViewData["Title"] = "Index";
+    int numPage = 1;
+    int numRegistros = 0;
+    int numRegistrosPorPage = 10;
+    int[] tops = { 10, 20, 50, 100, 500, 1000, 10000, -1 };
+    int topActual = Convert.ToInt32(ViewBag.Top);
+    List<SeguridadWeb.EntidadesDeNegocio.Usuario> user = ViewBag.Usuarios as List<SeguridadWeb.EntidadesDeNegocio.Usuario>;
+}
+<div class="row" style="width:100%">
+    <div class="col-6">
+        <h2 class="control-label">Lista alumnos</h2>
+    </div>
+    <div class="col-4 text-right">
+        <button type="button" class="btn btn-info form-control" data-toggle="modal" data-target="#modal">Ver</button>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body p-2">
+                    <p class="card-title"><ins>Datos Matricula</ins></p>
+                    <input id="txtidmatricula" type="hidden" value="0" />
+                    <div class="row align-items-end">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="txt">Situacion</label>
+                                <select class="form-select form-select-md" id="sltsituacion">
+                                    <option value="es repitente">Es Repitente</option>
+                                    <option value="no repitente">No Repitente</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="txtalumno">Nombres</label>
+                                <input type="text" class="form-control required" id="txtalumnonombres" name="alumnonombres" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="txtalumnoapellidos">Apellidos</label>
+                                <input type="text" class="form-control required" id="txtalumnoapellidos" name="alumnoapellidos" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <button type="button" onclick="buscarAlumno()" id="btnBuscar" class="btn btn-success">Buscar</button>
+                                <button type="button" onclick="limpiarAlumno()" class="btn btn-info">Limpiar</button>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@*Modal*@
+<div class="modal fade" id="modal" role="dialog">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <form method="get" action="/Alumno/ObtenerTodos">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title text-primary text-center"></h2>
+                </div>
+                <div class="modal-body">
+
+                    <div class="p-4 border rounded bg-light">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">ID</label>
+                                    <input type="text" class="form-control" name="id" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Nombre</label>
+                                    <input type="search" class="form-control" name="nombre" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Nie</label>
+                                    <input type="text" class="form-control" name="nie" />
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label">Top</label>
+                                    <select name="top_aux" class="form-control">
+                                        @foreach (var item in tops)
+                                        {
+                                            string strItem = item != -1 ? item.ToString() : "Todos";
+                                            if (item != topActual)
+                                            {
+                                                <option value="@item">@strItem</option>
+                                            }
+                                            else
+                                            {
+                                                <option selected value="@item">@strItem</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="example_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="example" role="search"></label></div>
+                        <div class="form-group">
+                            <input type="submit" value="Buscar" class="btn btn-primary" />
+                        </div>
+
+                        <table id="tblData" class="table table-bordered table-responsive-xl">
+                            <thead class="thead-dark">
+                                <tr class="table-info">
+                                    <th></th>
+                                    <th>Id Código</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Nie</th>
+                                    <th>Fecha Nacimiento</th>
+                                    <th>Telefono</th>
+                                    <th>Dirección</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td><button class='btn btn-primary btn-sm' type='button' onclick='Seleccionar(" + JSON.stringify(row) + ")'><i class='fa fa-check'></i></button></td>
+                                        <td>@Html.DisplayFor(modelItem => item.IdAlumno)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Nie)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.FechaNac)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
+                                        <td class="botonestabla">
+                                            @Html.ActionLink("Modificar", "Edit", new { id = item.IdAlumno }, new { @class = "btn btn-success" })
+
+                                            @Html.ActionLink("Ver", "Details", new { id = item.IdAlumno }, new { @class = "btn btn-info" })
+                                            @Html.ActionLink("Eliminar", "Delete", new { id = item.IdAlumno }, new { @class = "btn btn-danger" })
+                                        </td>
+
+                                    </tr>
+                                    numRegistros++;
+                                    if (numRegistros == numRegistrosPorPage)
+                                    {
+                                        numPage++;
+                                        numRegistros = 0;
+                                    }
+                                }
+                                @{ if (numRegistros == 0)
+                                    {
+                                        numPage--;
+                                    } }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@if (numPage > 1)
+{
+    <div class="row" style="overflow:auto">
+        <div class="col-md-12">
+            <ul class="pagination paginationjs" data-numpage="@numPage" data-pageactive="1">
+                <li class="page-item" data-typepage="Previous"><a class="page-link" href="#">Previous</a></li>
+                @for (var i = 1; i <= numPage; i++)
+                {
+                    <li class="page-item" data-page="@i" data-typepage="Item"><a class="page-link" href="#">@i</a></li>
+}
+                <li class="page-item" data-typepage="Next"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </div>
+    </div>}
+@section Scripts{
+    <script type="text/javascript" src="~/js/alumno.js"></script>
+    <script type="text/javascript">
+        function Seleccionar(json) {
+            var id = json.IdEstudiante;
+
+            $("#txtIdReferencia").val(id);
+
+            $("#txtNombre").val(json.Nombre);
+            $("#txtApellidos").val(json.Apellido);
+        }
+    </script>
+}

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<SeguridadWeb.EntidadesDeNegocio.Matricula>
+@{ ViewData["Title"] = "IndexPDF";}
+<div class="container-fluid">
+    <div class="row">
+        <div class="modal-header">
+            <div class="figure-img"><br /><br /><img src="~/Source/assets/logoEscuela.png" alt="Logo" width="250" height="250" /> </div>
+            <p class="font-weight-bold">Listado de matriculas</p>
+            <div class="bg-dark" style="background-color:darkcyan;width:auto;height:25%;"></div>
+        </div>
+    </div>
+</div>
+<table class="table table-responsive paginationjs">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdAlumno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdDocente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdGrado)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.IdSeccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnioLectivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnioIngreso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnioEgreso)
+            </th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alumno.Nombre)
+                    @Html.DisplayFor(modelItem => item.Alumno.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Docente.Nombre)
+                    @Html.DisplayFor(modelItem => item.Docente.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grado.Grado1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seccion.Seccion1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnioLectivo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnioIngreso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnioEgreso)
+                </td>
+            </tr>
+}
+    </tbody>
+</table>

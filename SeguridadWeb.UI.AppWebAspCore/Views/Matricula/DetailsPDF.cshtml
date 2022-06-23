@@ -1,0 +1,92 @@
+﻿@model SeguridadWeb.EntidadesDeNegocio.Matricula
+@{ 
+    ViewData["Title"] = "Matricula 2022 - PDF";
+}
+
+
+<h1>Detalles Ficha de Matricula</h1>
+<div class="row mt-4">
+    <div class="col-12">
+
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body p-2">
+                        <label class="card-title"><strong>Datos del Alumno</strong></label>
+                        <div class="row align-items-end">
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">NIE </label>
+                                    <input type="text" class="form-control" value="@Html.DisplayFor(model => model.Alumno.Nie)" readonly />
+
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">Nombres </label>
+                                    <input type="text" class="form-control" value="@Html.DisplayFor(model => model.Alumno.Nombre)" readonly />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">Apellidos </label>
+                                    <input type="text" class="form-control" value="@Html.DisplayFor(model => model.Alumno.Apellido)" readonly />
+                                </div>
+                            </div>
+                        </div>
+
+                        <label class="card-title"><strong>Datos del Docente</strong></label>
+                        <div class="row align-items-end">
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Nombre </label>
+                                    <input type="text" class="form-control" value="@Html.DisplayFor(model => model.Docente.Nombre)" readonly />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="control-label">Apellido </label>
+                                    <input type="text" class="form-control" value="@Html.DisplayFor(model => model.Docente.Apellido)" readonly />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body p-2">
+
+                        <label class="control-label"><strong>Grado y seccion</strong></label>
+                        <div class="row align-items-end">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">Grado</label>
+                                    <input type="text" class="form-control" value="@Html.DisplayFor(model => model.Grado.Grado1)" readonly />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">Seccion </label>
+                                    <input type="text" class="form-control" value="@Html.DisplayFor(model => model.Seccion.Seccion1)" readonly />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">Año Lectivo </label>
+                                    <input type="text" class="form-control" value="@Html.DisplayFor(model => model.AnioLectivo)" readonly />
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

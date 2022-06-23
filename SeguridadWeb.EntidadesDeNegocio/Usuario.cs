@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+// ********************************
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SeguridadWeb.EntidadesDeNegocio
+{
+    public class Usuario
+    {
+        [Key]
+        public int Id { get; set; }
+        [ForeignKey("Rol")]
+        [Required(ErrorMessage = "Rol es obligatorio")]
+        [Display(Name = "Rol")]
+        public int IdRol { get; set; }
+        
+        
+        public string Login { get; set; }
+        [Required(ErrorMessage = "Password es obligatorio")]
+        [DataType(DataType.Password)]
+        [StringLength(32, ErrorMessage = "Password debe estar entre 5 a 32 caracteres", MinimumLength = 5)]
+        public string Password { get; set; }
+        [Required(ErrorMessage = "Estatus es obligatorio")]
+        public byte Estado { get; set; }
+        [Display(Name = "Fecha registro")]
+        public DateTime FechaRegistro { get; set; }
+        
+        public Rol Rol { get; set; }
+        
+        [NotMapped]
+        public int Top_Aux { get; set; }
+        [NotMapped]
+        [Required(ErrorMessage = "Confirmar el password")]
+        [StringLength(32, ErrorMessage = "Password debe estar entre 5 a 32 caracteres", MinimumLength = 5)]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Password y confirmar password deben de ser iguales")]
+        [Display(Name = "Confirmar password")]
+        public string ConfirmPassword_aux { get; set; }
+
+    }
+    public enum Estatus_Usuario
+    {
+        ACTIVO = 1,
+        INACTIVO = 2
+    }
+}

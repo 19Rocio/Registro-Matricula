@@ -1,0 +1,286 @@
+﻿@model SeguridadWeb.EntidadesDeNegocio.Matricula
+
+@{
+    ViewData["Title"] = "Create";   
+    List<SeguridadWeb.EntidadesDeNegocio.Docente> docente = ViewBag.Docentes as List<SeguridadWeb.EntidadesDeNegocio.Docente>;
+    List<SeguridadWeb.EntidadesDeNegocio.Grado> grado = ViewBag.Grados as List<SeguridadWeb.EntidadesDeNegocio.Grado>;
+    List<SeguridadWeb.EntidadesDeNegocio.Seccion> seccion = ViewBag.Secciones as List<SeguridadWeb.EntidadesDeNegocio.Seccion>;
+}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
+<h1>Nueva Matricula</h1>
+
+<hr />
+<div class="row mt-4">
+    <div class="col-sm-12">        
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!--DATOS DEL ALUMNO-->
+            <div class="row mb-3">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body p-2">
+                            <p class="card-title"><ins>Datos del Alumno</ins></p>
+                            <input id="txtidalumno" type="hidden" asp-for="IdAlumno" />
+                            <span asp-validation-for="IdAlumno" class="text-danger"></span>
+                            <div class="row align-items-end">
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-success form-control" data-toggle="modal" data-target="#myModal">
+                                            Buscar Alumno
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="txtalumnonie">NIE</label>
+                                        <input type="text" class="form-control required" id="txtnie" name="alumnonie" autocomplete="off" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="txtalumnonombres">Nombres</label>
+                                        <input type="text" class="form-control required" id="txtalumnonombres" name="alumnonombres" autocomplete="off" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="txtalumnoapellidos">Apellidos</label>
+                                        <input type="text" class="form-control required" id="txtalumnoapellidos" name="alumnoapellidos" autocomplete="off" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtalumnofechanacimiento">Fecha Nacimiento</label>
+                                        <input type="text" class="form-control required" id="txtalumnofechanacimiento" name="alumnofechanacimiento" autocomplete="off" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="txtalumnodireccion">Direccion</label>
+                                        <input type="text" class="form-control required" id="txtalumnodireccion" name="alumnodireccion" autocomplete="off" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--DATOS DEL ENCARGADO-->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-end">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Nombre de Encargado</label>
+                                <input type="text" id="txtapoderadonombres" class="form-control" readonly/>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label class="control-label"> DUI de encargado</label>
+                                <input type="text" id="txtduiapoderado" class="form-control"readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-end">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">Apellido de Encargado</label>
+                                <input type="text" id="txtapoderadoapellidos" class="form-control" readonly/>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label class="control-label"> Telefono de encargado</label>
+                                <input type="text" id="txttelefonoapoderado" class="form-control" readonly/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <!--SELECCIONAR DATOS DE DOCENTE-->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-end">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label">Docente</label>
+                                <select name="idDocente" class="form-control">
+                                    <option selected value="">SELECCIONAR</option>
+                                    @foreach (var item in docente)
+                                    {
+                                        <option value="@item.IdDocente">@item.Nombre-@item.Apellido</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="IdDocente" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <!--seleccionar datos de grado y seccion-->
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label">Grado</label>
+                                <select name="idGrado" class="form-control">
+                                    <option selected value="">SELECCIONAR</option>
+                                    @foreach (var item in grado)
+                                    {
+                                        <option value="@item.Id">@item.Grado1</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="IdGrado" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label">Seccion</label>
+                                <select name="idSeccion" class="form-control">
+                                    <option selected value="">SELECCIONAR</option>
+                                    @foreach (var item in seccion)
+                                    {
+                                        <option value="@item.Id">@item.Seccion1</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="IdSeccion" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-end">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label asp-for="AnioIngreso" class="control-label">Año de Ingreso</label>
+                                <input type="date" asp-for="AnioIngreso" class="form-control" />
+                                <span asp-validation-for="AnioIngreso" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label asp-for="AnioLectivo" class="control-label">Año Lectivo</label>
+                                <input type="date" asp-for="AnioLectivo" class="form-control" />
+                                <span asp-validation-for="AnioLectivo" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="submit" value="Guardar" class="btn btn-primary " />
+                                <a asp-action="Index" class="btn btn-dark">Cancelar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span class="text-danger">@ViewBag.Error</span>
+        </form>
+    </div>
+</div>
+@*creacion de ventana modal*@
+<div class="card-body">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <div class="table-responsive">
+                                <table class="table table-bordered display" id="id_Table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nie</th>
+                                            <th>Nombres</th>
+                                            <th>Apellidos</th>
+                                            <th>Fecha de Nacimiento</th>
+                                            <th>Direccion</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <footer class="blockquote-footer">Registro<cite title="Source Title">Año 2022</cite></footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+    <script type="text/javascript">
+
+            $(document).ready(
+              function () {
+
+                idOrigen = "idAlumno";
+                $('#id_Table').DataTable({
+                    "ajax": {
+                        "url": "@Url.Action("Listar","Alumno")",
+                        "type": "GET",
+                        "datatype":"json"
+                    },
+                    "columns": [
+                        { "data": "idAlumno" },
+                        { "data":"nie"},
+                        { "data": "nombre" },
+                        { "data": "apellido" },
+                        { "data": "fechaNac" },
+                        { "data": "direccion"},
+                        {
+                            "data": idOrigen, "render": function (data, type, row, meta) {
+                                return "<button class='btn btn-primary btn-sm' type='button' onclick='Seleccionar(" + JSON.stringify(row) + ")'><i class='fa fa-check'></i></button>"
+                            },
+                            "orderable": false,
+                            "searchable": false,
+                            "width": "150px"
+                        }
+                    ],
+                    columnDefs: [
+                        {
+                            targets: 0,
+                            visible:false
+                        },
+                        { targets: 4, "render": function (data) { return moment(data).format("DD-MM-YYYY") } }
+                    ],
+                    "language": {
+                        url:"https://cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json"
+                    }
+                });
+            }
+        )
+    function Seleccionar(json) {
+        $('#txtidalumno').val(json.idAlumno);
+        $('#txtnie').val(json.nie);
+        $('#txtalumnonombres').val(json.nombre);
+        $('#txtalumnoapellidos').val(json.apellido);
+        $('#txtalumnofechanacimiento').val(json.fechaNac);
+        $('#txtalumnodireccion').val(json.direccion);
+        //DATOS ENCARGADO
+        $('#txtapoderadonombres').val(json.nombreEncargado);
+        $('#txtapoderadoapellidos').val(json.apellidoEncargado);
+        $('#txtduiapoderado').val(json.duiEncargado);
+        $('#txttelefonoapoderado').val(json.telefonoEncargado);
+    }
+    </script>
+}

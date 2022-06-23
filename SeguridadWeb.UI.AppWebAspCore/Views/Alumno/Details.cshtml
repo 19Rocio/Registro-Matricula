@@ -1,0 +1,179 @@
+﻿@model SeguridadWeb.EntidadesDeNegocio.Alumno
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Ver Ficha</h1>
+
+<div>
+    <h4>Alumno</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IdUser)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdUser)
+            @Html.DisplayFor(model => model.Usuario.Login)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Apellido)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Apellido)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nie)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nie)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dui)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dui)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaNac)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FechaNac)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NPartida)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NPartida)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NFolio)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NFolio)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NLibro)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NLibro)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NTomo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NTomo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nacionalidad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nacionalidad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Genero)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Genero)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Correo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Correo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Direccion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Direccion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Departamento)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Departamento)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Canton)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Canton)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Caserio)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Caserio)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Municipio)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Municipio)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ZonaResidencia)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ZonaResidencia)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Estadocivil)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Estadocivil)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ConvivenciaFamiliar)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ConvivenciaFamiliar)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NombreEncargado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NombreEncargado)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ApellidoEncargado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ApellidoEncargado)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DuiEncargado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DuiEncargado)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TelefonoEncargado)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TelefonoEncargado)
+        </dd>
+    </dl>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.ActionLink("Ir a modificar", "Edit", new { id = Model.IdAlumno }, new { @class = "btn btn-info" })
+            <a asp-action="Index" class="btn btn-dark">Cancelar</a>
+        </div>
+    </div>
+</div>
